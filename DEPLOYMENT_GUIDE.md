@@ -1,4 +1,4 @@
-# ?? Deployment Guide — Foundry Multi-Agent Plant Advisor
+# ?? Deployment Guide â€” Foundry Multi-Agent Plant Advisor
 
 This guide walks you through deploying the accelerator from a clean machine to a fully working multi-agent system in the Foundry portal.
 
@@ -52,7 +52,7 @@ The script blocks anything else with a friendly error.
 
 ## 2. Sign in to Azure
 
-You need **two** sign-ins — `az` (for ARM operations + REST) and `azd` (for the bicep deployment).
+You need **two** sign-ins â€” `az` (for ARM operations + REST) and `azd` (for the bicep deployment).
 
 ### 2.1 Azure CLI
 
@@ -60,7 +60,7 @@ You need **two** sign-ins — `az` (for ARM operations + REST) and `azd` (for the 
 az login
 ```
 
-A browser opens — sign in. Then verify you're on the right tenant:
+A browser opens â€” sign in. Then verify you're on the right tenant:
 
 ```powershell
 az account show --query "{Subscription:name, SubscriptionId:id, Tenant:tenantId, User:user.name}" -o table
@@ -79,9 +79,9 @@ az account set --subscription "<your-sub-name-or-id>"
 azd auth login
 ```
 
-Same browser flow. The script auto-detects if `azd` is logged out and prompts you to sign in mid-deploy if needed — but doing it up front saves time.
+Same browser flow. The script auto-detects if `azd` is logged out and prompts you to sign in mid-deploy if needed â€” but doing it up front saves time.
 
-> ?? The `deploy.ps1` script will **detect missing logins and prompt you interactively** — you don't have to do these manually if you forget. They're listed here for reference.
+> ?? The `deploy.ps1` script will **detect missing logins and prompt you interactively** â€” you don't have to do these manually if you forget. They're listed here for reference.
 
 ---
 
@@ -157,7 +157,7 @@ PHASE 2 - Cleanup previous deployment (optional)
   Clean up previous deployment first? [y/N]:
 ```
 
-- Answer **`n`** to **reuse the existing infra** (faster — auto-loads location, env label, RG from azd state)
+- Answer **`n`** to **reuse the existing infra** (faster â€” auto-loads location, env label, RG from azd state)
 - Answer **`y`** to **delete the resource group + purge soft-deleted accounts** and start fresh
 
 ---
@@ -172,7 +172,7 @@ PHASE 2 - Cleanup previous deployment (optional)
 | 1 | Verify `az` + `azd` login (prompts if missing) | <5s |
 | 2 | Optional cleanup of previous deployment | varies |
 | 3 | Collect deployment parameters | interactive |
-| 4 | **`azd provision`** — runs Bicep to create RG, AI Foundry account + project, ACR, App Insights, Log Analytics, RBAC | **~3 min** |
+| 4 | **`azd provision`** â€” runs Bicep to create RG, AI Foundry account + project, ACR, App Insights, Log Analytics, RBAC | **~3 min** |
 | 5 | Read provisioned values from azd env | <5s |
 | 6 | **Hand off to `deploy-agent.ps1`** (10 inner AGENT STEPs) | **~5-7 min** |
 | 7 | Final summary + portal URL | <1s |
@@ -190,7 +190,7 @@ PHASE 2 - Cleanup previous deployment (optional)
 | 6 | `docker build` orchestrator ? `docker push` to ACR | ~3-5 min |
 | 7 | Register hosted agent version (POST `/agents/{name}/versions`) | ~10s |
 | 8 | Grant `Cognitive Services OpenAI User` + `Azure AI Developer` to agent's MI | ~5s |
-| 9 | Smoke test — POST a Pothos query | ~60-90s |
+| 9 | Smoke test â€” POST a Pothos query | ~60-90s |
 | 10 | Save `.deploy-state.json` for cleanup | <1s |
 
 ### Look for these "OK" lines to confirm STEP 5 worked
@@ -226,7 +226,7 @@ https://ai.azure.com/build/agents
 ??  Summary-Generator      (prompt)
 ```
 
-> If you only see 1 agent, **hard-refresh** with **Ctrl+F5** — Foundry caches the agents list.
+> If you only see 1 agent, **hard-refresh** with **Ctrl+F5** â€” Foundry caches the agents list.
 
 ### 6.1 Open the orchestrator playground
 
@@ -237,7 +237,7 @@ Click `foundry-hosted-agent` ? **Playground** tab.
 ```
 Tell me about Pothos plant
 Is Aloe Vera safe for cats?
-I have a toddler — should I get a Philodendron?
+I have a toddler â€” should I get a Philodendron?
 Compare Snake Plant and Pothos for low-light apartments.
 Tell me about Lily of the Valley.
 ```
@@ -247,7 +247,7 @@ Each query takes ~60-90 seconds (3 sub-agent calls + summarisation). The first o
 Off-topic prompts get politely refused:
 
 ```
-What's the weather today?       ? "I'm a plant advisor — ..."
+What's the weather today?       ? "I'm a plant advisor â€” ..."
 Write me a sorting algorithm.   ? refused
 ```
 
@@ -331,8 +331,8 @@ az cognitiveservices account purge --location <region> --resource-group <rg> --n
 | `azd provision` fails: *"location not supported"* | Region isn't one of the 4 hosted-agent regions | Re-run, choose `swedencentral` |
 | AGENT STEP 5 fails with HTTP 401/403 | RBAC propagation delay | Wait 60s, re-run (script is idempotent) |
 | AGENT STEP 6 fails: *"docker build failed"* | Stale `bin/obj` or Docker Desktop not running | Script auto-cleans `bin/obj`; ensure Docker Desktop is running |
-| AGENT STEP 9 returns `[WARN]` | Container cold start | Normal — wait 60s, test in playground |
-| Playground returns *"Network error"* | Cold-start timeout on first call | Wait 90s, retry — subsequent calls are fast |
+| AGENT STEP 9 returns `[WARN]` | Container cold start | Normal â€” wait 60s, test in playground |
+| Playground returns *"Network error"* | Cold-start timeout on first call | Wait 90s, retry â€” subsequent calls are fast |
 | Playground: *"Service did not return a valid conversation id..."* | UI session quirk | Switch *Chat history* to **Client managed** in settings |
 | Sub-agents not visible in portal | Browser cache | **Ctrl+F5** to hard-refresh |
 | `dotnet build` fails: *"package not found"* | NuGet restore issue | `dotnet restore --force-evaluate` then retry |
@@ -352,14 +352,12 @@ union traces, exceptions
 | order by timestamp desc
 ```
 
-You'll see exactly where requests fail — token acquisition, sub-agent call, model response, etc.
+You'll see exactly where requests fail â€” token acquisition, sub-agent call, model response, etc.
 
 ---
 
 ## ?? You're done!
 
-If you got a markdown summary in the playground, congratulations — you've deployed a working multi-agent system on Microsoft Foundry. ??
+If you got a markdown summary in the playground, congratulations â€” you've deployed a working multi-agent system on Microsoft Foundry. ??
 
 To extend it for your domain or contribute new specialist agents, see **[CONTRIBUTING.md](CONTRIBUTING.md)**.
-
-For background on the design and the *why* behind each decision, see **[BLOG.md](BLOG.md)**.
