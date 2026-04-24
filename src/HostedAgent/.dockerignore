@@ -1,0 +1,24 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+
+# Local agent state and logs (would otherwise be COPY'd into the image and may be locked)
+agent.log
+agent.err.log
+agent.pid
+
+# Local secrets / azd state - never bake into image
+.azure/
+.deploy-state.json
+*.user
+*.suo
+
+# Git / docs
+.git/
+.gitignore
+*.md
+
+# Docker
+Dockerfile
+.dockerignore

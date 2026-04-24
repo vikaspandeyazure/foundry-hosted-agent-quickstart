@@ -1,0 +1,29 @@
+name: foundry-hosted-agent
+kind: hosted
+description: >
+  A minimal Microsoft Foundry hosted agent that answers user questions
+  by calling an Azure OpenAI deployment via the Microsoft Agent Framework.
+protocols:
+  - protocol: responses
+    version: v1
+metadata:
+  authors:
+    - Quickstart Sample
+  tags:
+    - Microsoft Agent Framework
+    - Microsoft Foundry
+    - Hosted Agent
+template:
+  name: foundry-hosted-agent
+  kind: hosted
+  protocols:
+    - protocol: responses
+      version: v1
+  environment_variables:
+    - name: AZURE_OPENAI_ENDPOINT
+      value: ${AZURE_OPENAI_ENDPOINT}
+    - name: AZURE_OPENAI_DEPLOYMENT_NAME
+      value: gpt-5-mini
+resources:
+  cpu: '1'
+  memory: 2Gi

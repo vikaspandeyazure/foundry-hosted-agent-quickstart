@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnablePreviewFeatures>true</EnablePreviewFeatures>
+    <UserSecretsId>foundry-hosted-agent-quickstart</UserSecretsId>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Microsoft Agent Framework + Foundry hosting adapter -->
+    <PackageReference Include="Azure.AI.AgentServer.AgentFramework" Version="1.0.0-beta.10" />
+
+    <!-- Azure OpenAI client for the LLM call -->
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.8.0-beta.1" />
+    <PackageReference Include="Azure.Identity" Version="1.19.0" />
+
+    <!-- Microsoft.Extensions.AI bridges OpenAI client into IChatClient -->
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.3.0" />
+
+    <!-- Configuration + logging -->
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.4" />
+
+    <!-- OpenTelemetry -> Application Insights (auto-enables when APPLICATIONINSIGHTS_CONNECTION_STRING is set) -->
+    <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.4.0" />
+    <PackageReference Include="OpenTelemetry" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+  </ItemGroup>
+
+</Project>
